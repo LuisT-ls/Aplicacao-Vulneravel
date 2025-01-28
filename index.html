@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teste de XSS - Aplicação Vulnerável</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <h1><i class="fas fa-shield-alt"></i> Aplicação Vulnerável a XSS</h1>
+      <p>
+        <i class="fas fa-info-circle"></i> Explore e aprenda sobre **Cross-Site
+        Scripting** em um ambiente controlado!
+      </p>
+    </header>
+
+    <main>
+      <section class="form-section">
+        <h2><i class="fas fa-keyboard"></i> Teste XSS: Entrada do Usuário</h2>
+        <form method="GET">
+          <label for="name"
+            ><i class="fas fa-user-edit"></i> Digite seu nome ou código:</label
+          ><br />
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Seu nome ou código malicioso"
+            required
+          />
+          <button type="submit">
+            <i class="fas fa-paper-plane"></i> Enviar
+          </button>
+        </form>
+      </section>
+
+      <section class="output-section">
+        <h2><i class="fas fa-code"></i> Resultado da Entrada:</h2>
+        <div class="output">
+          <!-- Vulnerabilidade XSS aqui -->
+          <p>
+            Olá,
+            <span id="user-output">
+              <script>
+                const params = new URLSearchParams(window.location.search)
+                document.write(params.get('name') || 'Visitante')
+              </script> </span
+            >!
+          </p>
+        </div>
+      </section>
+
+      <section class="details-section">
+        <h2><i class="fas fa-exclamation-triangle"></i> O que é XSS?</h2>
+        <p>
+          <i class="fas fa-lightbulb"></i> Cross-Site Scripting (XSS) é uma
+          vulnerabilidade de segurança web que permite a um atacante injetar
+          scripts maliciosos em páginas visualizadas por outros usuários.
+          Existem diferentes tipos de XSS, como:
+        </p>
+        <ul>
+          <li>
+            <strong><i class="fas fa-database"></i> Stored XSS</strong>: O
+            código malicioso é armazenado permanentemente no servidor.
+          </li>
+          <li>
+            <strong
+              ><i class="fas fa-external-link-alt"></i> Reflected XSS</strong
+            >: O código malicioso é enviado na solicitação HTTP e refletido na
+            resposta.
+          </li>
+          <li>
+            <strong><i class="fas fa-browser"></i> DOM-Based XSS</strong>: O
+            código malicioso é executado diretamente no navegador, manipulando o
+            DOM.
+          </li>
+        </ul>
+        <p>
+          <i class="fas fa-tools"></i> Este exemplo demonstra vulnerabilidades
+          <strong>Reflected XSS</strong>, onde a entrada do usuário é refletida
+          diretamente na página sem validação.
+        </p>
+      </section>
+
+      <section class="testing-section">
+        <h2><i class="fas fa-vial"></i> Como Testar?</h2>
+        <p>
+          <i class="fas fa-terminal"></i> Tente inserir os seguintes códigos no
+          campo acima e veja os resultados:
+        </p>
+        <div class="test-cases">
+          <ul>
+            <li>
+              <i class="fas fa-code"></i>
+              <code>&lt;script&gt;alert('XSS!')&lt;/script&gt;</code>
+            </li>
+            <li>
+              <i class="fas fa-image"></i>
+              <code>&lt;img src="x" onerror="alert('Imagem XSS!')"&gt;</code>
+            </li>
+            <li>
+              <i class="fas fa-palette"></i>
+              <code>&lt;svg onload="alert('SVG XSS!')"&gt;&lt;/svg&gt;</code>
+            </li>
+          </ul>
+        </div>
+        <p>
+          <i class="fas fa-eye"></i> Observe que os alertas serão exibidos no
+          navegador devido à vulnerabilidade.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        ⚠️ Esta aplicação é apenas para fins educativos. Não use fora de um
+        ambiente controlado. <i class="fas fa-lock"></i>
+      </p>
+    </footer>
+  </body>
+</html>
